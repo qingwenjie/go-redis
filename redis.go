@@ -15,8 +15,8 @@ type Options struct {
 	Database int32
 }
 
-//连接redis
-func Connect(options *Options) redis.Conn {
+//新建redis连接
+func New(options *Options) redis.Conn {
 	if conn != nil {
 		return conn
 	}
@@ -33,7 +33,15 @@ func Connect(options *Options) redis.Conn {
 	if _, err := connect.Do("SELECT", options.Database); err != nil {
 		return nil
 	}
-	conn = connect
+	return connect
+}
+
+//连接redis，复用连接池
+func Connect(options *Options) redis.Conn {
+	if conn != nil {
+		return conn
+	}
+	conn = New(options)
 	return conn
 }
 
