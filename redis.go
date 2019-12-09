@@ -17,6 +17,9 @@ type Options struct {
 
 //连接redis
 func Connect(options *Options) redis.Conn {
+	if conn != nil {
+		return conn
+	}
 	if options == nil {
 		return nil
 	}
