@@ -36,7 +36,7 @@ func New(options *Options) redis.Conn {
 	return connect
 }
 
-//连接redis，复用连接池
+//连接redis,复用连接池
 func Connect(options *Options) redis.Conn {
 	if conn != nil {
 		return conn
